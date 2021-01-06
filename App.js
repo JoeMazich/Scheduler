@@ -1,25 +1,64 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 
 const schedule = {
-  title: "CS Courses for 2018-2019",
-  author: "Joseph Mazich"
+  "title": "CS Courses for 2018-2019",
+  "courses": [
+    {
+      "id" : "F101",
+      "title": "Computer Science: Concepts, Philosophy, and Connections",
+      "meets": "MWF 11:00-11:50"
+    },
+    {
+      "id" : "F110",
+      "title": "Intro Programming for non-majors",
+      "meets": "MWF 10:00-10:50"
+    },
+    {
+      "id" : "F111",
+      "title": "Fundamentals of Computer Programming I",
+      "meets": "MWF 13:00-13:50"
+    },
+    {
+      "id" : "F211",
+      "title": "Fundamentals of Computer Programming II",
+      "meets": "TuTh 12:30-13:50"
+    }
+  ]
 };
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.Item1}>
-        <Text style={styles.bannerStyle}>{schedule.title}</Text>
-      </View>
-
-      <View style={styles.Item2}>
-        <Text style={styles.bannerStyle2}>{schedule.author}</Text>
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Banner title={schedule.title} />
+      <CourseList courses={schedule.courses} />
+    </SafeAreaView>
   );
 }
 
+const Banner = ({title}) => (
+  <Text style={styles.bannerStyle}>{title}</Text>
+);
+
+const CourseList = ({courses}) => (
+  <ScrollView>
+    <View style={styles.courseList}>
+      {courses.map(course => <Course key={course.id} course={course} />)}
+    </View>
+  </ScrollView>
+);
+
+const getCourseNumber = course => (
+  course.id.slice(1)
+);
+
+const Course = ({course}) => (
+  <TouchableOpacity style={styles.courseButton}>
+    <Text style={styles.courseText}>
+      {`CS ${getCourseNumber(course)}\n${course.meets}`}
+    </Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -27,27 +66,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
+    paddingTop: 20,
   },
-  Item1: {
-    flex: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff'
-  },
-  Item2: {
+  courseList: {
     flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff'
+    justifyContent: 'space-between',
   },
   bannerStyle: {
-    color: '#FF0000',
+    color: '#888',
     fontSize: 32,
   },
-  bannerStyle2: {
-    color: '#00FF00',
-    fontSize: 16,
-    fontWeight: "bold",
+  courseButton: {
+    flex: 1,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+    height: 60,
+    padding: 10,
+    minWidth: 90,
+    maxWidth: 90,
+    backgroundColor: '#66b0ff',
+  },
+  courseText:{
+    color: '#fff',
+    fontSize: 12,
+    textAlign: 'center',
   }
 });
 
