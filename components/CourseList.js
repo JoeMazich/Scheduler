@@ -11,14 +11,14 @@ const getCourseTerm = course => (
   termMap[course.id.charAt(0)]
 );
 
-const CourseList = ({courses}) => {
+const CourseList = ({courses, view}) => {
   const [selectedTerm, setSelectedTerm] = useState('Fall');
   const termCourses = courses.filter(course => selectedTerm === getCourseTerm(course));
 
   return (
     <ScrollView>
       <TermSelector setSelectedTerm={setSelectedTerm} selectedTerm={selectedTerm} terms={terms}/>
-      <CourseSelector courses={termCourses} />
+      <CourseSelector courses={termCourses} view={view} />
     </ScrollView>
   );
 };
