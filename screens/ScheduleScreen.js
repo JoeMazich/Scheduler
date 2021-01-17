@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import CourseList from '../components/CourseList'
 import UserContext from '../UserContext'
-import { firebase } from '../firebaseApp'
+import { firebase } from '../utils/firebase'
 
 const fixCourses = json => ({
   ...json,
