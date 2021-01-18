@@ -11,7 +11,7 @@ const fixCourses = json => ({
 
 const ScheduleScreen = ({navigation}) => {
   const user = useContext(UserContext);
-  const canEdit = user && user.role ==='admin';
+  const canEdit = user && user.role === 'admin';
 
   const [schedule, setSchedule] = useState({ title: '', courses: [] });
 
