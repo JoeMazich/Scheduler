@@ -17,6 +17,19 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    if (auth && auth.uid) {
+      const db = firebase.database().ref('users').child(auth.uid);
+      const handleData = snap => {
+        setUser({uid: auth.uid, ...snap.val()});
+      }
+      db.on('value', handleData, error => alert(error));
+      return () => { db.off('value', handleData); };
+    } else {
+      setUser(null);
+    }
+  }, [auth]);
+
+  useEffect(() => {
     firebase.auth().onAuthStateChanged((auth) => {
       setAuth(auth);
     });

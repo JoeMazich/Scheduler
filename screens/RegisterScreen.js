@@ -78,7 +78,7 @@ const RegisterScreen = ({navigation}) => {
             textContentType="password"
           />
           <Form.Field
-            name="confirmPassword"
+            name="confirm"
             leftIcon="lock"
             placeholder="Confirm password"
             autoCapitalize="none"
